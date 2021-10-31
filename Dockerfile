@@ -6,8 +6,6 @@ RUN ["./gradlew", "assemble"]
 
 FROM openjdk:11
 
-COPY --from=builder /build/libs/*.jar app.jar
+COPY --from=builder /build/libs/app.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
-
