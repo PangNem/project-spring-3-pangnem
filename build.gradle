@@ -4,6 +4,11 @@ plugins {
 	id 'java'
 }
 
+bootJar {
+	archivesBaseName = 'app'
+	archiveFileName = 'app.jar'
+}
+
 group = 'io'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
