@@ -24,10 +24,10 @@ public class ImagePost {
     }
 
     /**
-     * 업로더를 설정하고, 도메인 객체를 생성해 리턴합니다.
+     * 업로더가 설정된 도메인 객체를 생성해 리턴합니다.
      *
      * @param uploader 업로더 이름
-     * @return 생성된 도메인 객체
+     * @return 업로더 이름이 설정되어 생성된 도메인 객체
      */
     public static ImagePost createImagePostFrom(String uploader) {
         return new ImagePost(uploader);
