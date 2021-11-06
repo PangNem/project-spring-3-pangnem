@@ -1,7 +1,5 @@
 cloud:
   aws:
-    credentials:
-      instanceProfile: true # aws configure list로 확인한 key들을 사용
     s3:
       bucket:
         name: "devshare-pangnem"
@@ -10,3 +8,5 @@ cloud:
       static: "ap-northeast-2"
     stack: # CloudFormation 구성 설정 해제
       auto: false
+    credentials:
+      instanceProfile: true # aws configure list로 확인한 key들을 사용
