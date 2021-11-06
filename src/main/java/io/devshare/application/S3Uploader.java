@@ -33,6 +33,7 @@ public class S3Uploader {
      * @param mfile    멀티파트 파일
      * @param uploader 업로더 이름
      * @return 업로드한 파일 URL
+     * @throws IOException 멀티파트 파일 변환에 실패한 경우
      */
     public String upload(MultipartFile mfile, String uploader) throws IOException {
         ImagePost imagePost = ImagePost.createImagePostFrom(uploader);
@@ -62,6 +63,7 @@ public class S3Uploader {
      *
      * @param mfile 멀티파트 파일
      * @return 변환된 일반 파일 객체
+     * @throws IOException 멀티파트 파일 변환에 실패한 경우
      */
     private File convert(MultipartFile mfile) throws IOException {
         String fileName = System.getProperty("user.dir") + "/" + mfile.getOriginalFilename();
