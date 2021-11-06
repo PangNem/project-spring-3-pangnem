@@ -49,7 +49,7 @@ class S3UploaderTest {
                 new FileInputStream(FILENAME)
         );
 
-        String url = s3Uploader.upload(file);
+        String url = s3Uploader.upload(file, "uploaderName");
 
         assertThat(url).isEqualTo(IMAGE_URL);
     }

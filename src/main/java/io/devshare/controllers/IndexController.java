@@ -23,9 +23,12 @@ public class IndexController {
         return "index";
     }
 
-    @PostMapping("/images")
-    public String image(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        String imageUrl = s3Uploader.upload(multipartFile);
+    @PostMapping(value = "/images")
+    public String image(
+            @RequestParam("uploader") String uploader,
+            @RequestParam("images") MultipartFile images
+    ) throws IOException {
+        String imageUrl = s3Uploader.upload(images, uploader);
 
         System.out.println(imageUrl);
 
