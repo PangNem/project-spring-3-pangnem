@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(properties = "spring.config.location=" +
         "classpath:/application.yml" +
-        ",classpath:/aws.yml"
+        ",classpath:/aws_test.yml"
 )
 @AutoConfigureMockMvc
 public class HealthCheckControllerTest {

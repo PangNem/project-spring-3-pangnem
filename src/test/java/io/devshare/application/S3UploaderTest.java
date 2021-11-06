@@ -21,7 +21,7 @@ import static org.mockito.Mockito.mock;
 
 @SpringBootTest(properties = "spring.config.location=" +
         "classpath:/application.yml" +
-        ",classpath:/aws.yml"
+        ",classpath:/aws_test.yml"
 )
 class S3UploaderTest {
 
