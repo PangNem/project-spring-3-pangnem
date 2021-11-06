@@ -1,0 +1,5 @@
+cloud:
+  aws:
+    credentials: # 임의 값
+      access-key: "NKIAYX-91GXQY17T25UAGEVO"
+      secret-key: "MkdaPG14uLjyhgBjLW16ef11kLwm6u3OT6c+KmJ0CtQga"
