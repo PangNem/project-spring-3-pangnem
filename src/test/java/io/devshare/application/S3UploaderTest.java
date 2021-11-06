@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -52,5 +53,7 @@ class S3UploaderTest {
         String url = s3Uploader.upload(file, "uploaderName");
 
         assertThat(url).isEqualTo(IMAGE_URL);
+
+        file.transferTo(new File(FILENAME));
     }
 }
