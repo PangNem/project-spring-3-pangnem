@@ -6,6 +6,7 @@ package io.devshare.domain;
 public class ImagePost {
 
     private String uploader;
+    private String url;
 
     private ImagePost(String uploader) {
         this.uploader = uploader;
@@ -23,5 +24,13 @@ public class ImagePost {
 
     public String getUploader() {
         return uploader;
+    }
+
+    public void upload(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

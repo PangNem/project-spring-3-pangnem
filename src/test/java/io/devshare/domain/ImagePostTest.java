@@ -16,4 +16,14 @@ public class ImagePostTest {
 
         assertThat(uploaderName).isEqualTo("ImagePostUploader");
     }
+
+    @Test
+    @DisplayName("이미지 포스트를 업로드 할 수 있다.")
+    void upload() {
+        ImagePost imagePost = ImagePost.createImagePostFrom("ImagePostUploader");
+
+        imagePost.upload("url");
+
+        assertThat(imagePost.getUrl()).isEqualTo("url");
+    }
 }
