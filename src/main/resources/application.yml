@@ -9,4 +9,6 @@ cloud:
     stack: # CloudFormation 구성 설정 해제
       auto: false
     credentials:
+      accessKey:
+      secretKey:
       instanceProfile: true # aws configure list로 확인한 key들을 사용
