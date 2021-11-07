@@ -2,6 +2,8 @@ FROM openjdk:11 AS builder
 
 COPY . .
 
+RUN ["touch", "src/main/resources/aws.yml"]
+
 RUN ["./gradlew", "assemble"]
 
 FROM openjdk:11
