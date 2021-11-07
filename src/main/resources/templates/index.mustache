@@ -44,8 +44,56 @@
     <div class="p-5 text-center bg-light">
         <h1 class="mb-3">Share Your Developing Life.</h1>
         <h4 class="mb-3">이미지 공유를 통해 당신의 개발 삶을 보여주세요.</h4>
-        <a class="btn btn-primary" href="" role="button">이미지 업로드 하러 가기</a>
+        <button
+                type="button"
+                class="btn btn-primary"
+                role="button"
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModal"
+        >이미지 업로드 하러 가기
+        </button>
+
     </div>
+
+    <!-- Modal -->
+    <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">이미지 업로드</h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <form action="/images" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-outline">
+                            <input type="text" class="form-control" name="uploader"/>
+                            <label class="form-label">자신의 닉네임을 입력해주세요!</label>
+                        </div>
+                        <br/>
+                        <input type="file" class="form-control" name="images" required/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </header>
 
 <footer class="text-center text-white fixed-bottom fixed-bottom" style="background-color: #f1f1f1;">
