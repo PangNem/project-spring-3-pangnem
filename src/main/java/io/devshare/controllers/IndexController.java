@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class IndexController {
     }
 
     @PostMapping(value = "/images")
-    public String image(
+    public ModelAndView image(
             @RequestParam("uploader") String uploader,
             @RequestParam("images") MultipartFile images
     ) throws IOException {
@@ -32,6 +33,6 @@ public class IndexController {
 
         System.out.println(imageUrl);
 
-        return "index";
+        return new ModelAndView("redirect:" + "/");
     }
 }
