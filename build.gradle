@@ -29,6 +29,8 @@ dependencies {
 
     // AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+
+    implementation 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.3'
 }
 
 test {
