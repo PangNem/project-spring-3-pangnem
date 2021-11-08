@@ -96,6 +96,30 @@
 
 </header>
 
+<main>
+    {{#each ImagePosts}}
+        {{#isMultipleOfThree @index}}
+            <div class="d-flex justify-content-center align-items-center m-4"/>
+        {{/isMultipleOfThree}}
+        <div
+                class="bg-image d-flex justify-content-end align-items-end m-4"
+                style="
+                        background-image: url('{{url}}');
+                        height: 33vh;
+                        width: 33vh;
+                        "
+        >
+            <p class="text-white m-2" style="text-shadow: 2px 2px 4px #000000;">
+                {{uploader}}
+            </p>
+        </div>
+        {{#isPlusOneMultipleOfThree @index}}
+            </div>
+        {{/isPlusOneMultipleOfThree}}
+    {{/each}}
+</main>
+
+<!-- Background image -->
 <footer class="text-center text-white fixed-bottom fixed-bottom" style="background-color: #f1f1f1;">
     <!-- Grid container -->
     <div class="container pt-4">
