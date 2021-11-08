@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import io.devshare.domain.ImagePost;
+import io.devshare.domain.ImagePostRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +17,11 @@ import java.util.UUID;
 public class S3Uploader {
 
     private final AmazonS3Client amazonS3Client;
+    private final ImagePostRepository imagePostRepository;
 
-    public S3Uploader(AmazonS3Client amazonS3Client) {
+    public S3Uploader(AmazonS3Client amazonS3Client, ImagePostRepository imagePostRepository) {
         this.amazonS3Client = amazonS3Client;
+        this.imagePostRepository = imagePostRepository;
     }
 
     @Value("${cloud.aws.s3.bucket.name}")
@@ -50,6 +53,8 @@ public class S3Uploader {
 
         String url = amazonS3Client.getUrl(bucketName, key).toString();
         imagePost.upload(url);
+
+        imagePostRepository.save(imagePost);
 
         return url;
     }

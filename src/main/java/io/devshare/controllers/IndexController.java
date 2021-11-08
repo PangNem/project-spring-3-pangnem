@@ -1,7 +1,9 @@
 package io.devshare.controllers;
 
+import io.devshare.application.ImagePostService;
 import io.devshare.application.S3Uploader;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +16,17 @@ import java.io.IOException;
 public class IndexController {
 
     private S3Uploader s3Uploader;
+    private ImagePostService imagePostService;
 
-    public IndexController(S3Uploader s3Uploader) {
+    public IndexController(S3Uploader s3Uploader, ImagePostService imagePostService) {
         this.s3Uploader = s3Uploader;
+        this.imagePostService = imagePostService;
     }
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("ImagePosts", imagePostService.getAllImagePosts());
+
         return "index";
     }
 
