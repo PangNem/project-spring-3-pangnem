@@ -18,7 +18,18 @@ public class ImagePostService {
         return imagePostRepository.findAll();
     }
 
-    public ImagePost add(ImagePost imagePost) {
+    /**
+     * 새 이미지 포스트를 만들어 추가한 후 리턴합니다.
+     *
+     * @param uploader 업로더
+     * @param url      이미지 URL
+     * @return 생성된 이미지 포스트
+     */
+    public ImagePost add(String uploader, String url) {
+        ImagePost imagePost = ImagePost.createImagePostFrom(uploader);
+
+        imagePost.upload(url);
+
         return imagePostRepository.save(imagePost);
     }
 }
