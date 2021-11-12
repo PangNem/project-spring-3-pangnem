@@ -17,7 +17,7 @@ public class ImagePostServiceTest {
     void setUp() {
         imagePostService = new ImagePostService(new InMemoryImagePostRepository());
 
-        imagePostService.add(ImagePost.createImagePostFrom("uploaderName"));
+        imagePostService.add("uploaderName", "url");
     }
 
     @Test
@@ -29,12 +29,14 @@ public class ImagePostServiceTest {
     }
 
     @Test
-    @DisplayName("add 메서드는 ImagePost를 추가한다")
+    @DisplayName("add 메서드는 업로드된 ImagePost를 추가한다")
     void add() {
-        ImagePost imagePost = ImagePost.createImagePostFrom("uploaderName");
+        String uploader = "uploaderName";
+        String url = "url";
 
-        imagePostService.add(imagePost);
+        ImagePost uploadedImagePost = imagePostService.add(uploader, url);
 
-        assertThat(imagePostService.getAllImagePosts()).hasSize(2);
+        assertThat(uploadedImagePost.getUploader()).isEqualTo(uploader);
+        assertThat(uploadedImagePost.getUrl()).isEqualTo(url);
     }
 }
