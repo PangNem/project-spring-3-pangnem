@@ -3,8 +3,6 @@ package io.devshare.application;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import io.devshare.domain.ImagePost;
-import io.devshare.domain.ImagePostRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,11 +15,9 @@ import java.util.UUID;
 public class S3Uploader {
 
     private final AmazonS3Client amazonS3Client;
-    private final ImagePostRepository imagePostRepository;
 
-    public S3Uploader(AmazonS3Client amazonS3Client, ImagePostRepository imagePostRepository) {
+    public S3Uploader(AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
-        this.imagePostRepository = imagePostRepository;
     }
 
     @Value("${cloud.aws.s3.bucket.name}")
@@ -33,14 +29,11 @@ public class S3Uploader {
     /**
      * 파일을 S3 저장소에 업로드 후, 저장한 URL을 리턴합니다.
      *
-     * @param mfile    멀티파트 파일
-     * @param uploader 업로더 이름
+     * @param mfile 멀티파트 파일
      * @return 업로드한 파일 URL
      * @throws IOException 멀티파트 파일 변환에 실패한 경우
      */
-    public String upload(MultipartFile mfile, String uploader) throws IOException {
-        ImagePost imagePost = ImagePost.createImagePostFrom(uploader);
-
+    public String upload(MultipartFile mfile) throws IOException {
         File convertedFile = convert(mfile);
         String key = getKey(convertedFile);
 
@@ -51,12 +44,7 @@ public class S3Uploader {
 
         convertedFile.delete();
 
-        String url = amazonS3Client.getUrl(bucketName, key).toString();
-        imagePost.upload(url);
-
-        imagePostRepository.save(imagePost);
-
-        return url;
+        return amazonS3Client.getUrl(bucketName, key).toString();
     }
 
     private String getKey(File file) {

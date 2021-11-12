@@ -1,8 +1,6 @@
 package io.devshare.application;
 
-
 import com.amazonaws.services.s3.AmazonS3Client;
-import io.devshare.infra.InMemoryImagePostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +33,7 @@ class S3UploaderTest {
     @BeforeEach
     void setUp() {
         amazonS3Client = mock(AmazonS3Client.class);
-        s3Uploader = new S3Uploader(amazonS3Client, new InMemoryImagePostRepository());
+        s3Uploader = new S3Uploader(amazonS3Client);
     }
 
     @Test
@@ -51,7 +49,7 @@ class S3UploaderTest {
                 new FileInputStream(FILENAME)
         );
 
-        String url = s3Uploader.upload(file, "uploaderName");
+        String url = s3Uploader.upload(file);
 
         assertThat(url).isEqualTo(IMAGE_URL);
 

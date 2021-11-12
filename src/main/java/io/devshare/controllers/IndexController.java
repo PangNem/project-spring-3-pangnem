@@ -35,9 +35,9 @@ public class IndexController {
             @RequestParam("uploader") String uploader,
             @RequestParam("images") MultipartFile images
     ) throws IOException {
-        String imageUrl = s3Uploader.upload(images, uploader);
+        String imageUrl = s3Uploader.upload(images);
 
-        System.out.println(imageUrl);
+        imagePostService.add(uploader, imageUrl);
 
         return new ModelAndView("redirect:" + "/");
     }
