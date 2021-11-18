@@ -8,6 +8,7 @@ public class DevshareApplication {
 
     public static final String APPLICATION_LOCATIONS = "spring.config.location="
             + "classpath:application.yml,"
+            + "classpath:prod-application.yml,"
             + "classpath:aws.yml";
 
     public static void main(String[] args) {
