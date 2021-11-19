@@ -1,12 +1,23 @@
 package io.devshare.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * 이미지 포스트 도메인.
  */
+@Entity
 public class ImagePost {
 
+    @Id
+    @GeneratedValue
+    private Long id;
     private String uploader;
     private String url;
+
+    public ImagePost() {
+    }
 
     private ImagePost(String uploader) {
         this.uploader = uploader;

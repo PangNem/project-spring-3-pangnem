@@ -38,3 +38,6 @@ out/
 
 ### AWS ###
 aws.yml
+
+### docker env
+docker-env.txt
