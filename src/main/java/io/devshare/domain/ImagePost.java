@@ -1,5 +1,7 @@
 package io.devshare.domain;
 
+import lombok.Getter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
  * 이미지 포스트 도메인.
  */
 @Entity
+@Getter
 public class ImagePost {
 
     @Id
@@ -33,15 +36,7 @@ public class ImagePost {
         return new ImagePost(uploader);
     }
 
-    public String getUploader() {
-        return uploader;
-    }
-
     public void upload(String url) {
         this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }
