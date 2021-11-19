@@ -39,5 +39,5 @@ out/
 ### AWS ###
 aws.yml
 
-### Production Configuration ###
-prod-application.yml
+### docker env
+docker-env.txt

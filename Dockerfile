@@ -4,8 +4,6 @@ COPY . .
 
 RUN ["touch", "src/main/resources/aws.yml"]
 
-RUN ["touch", "src/main/resources/prod-application.yml"]
-
 RUN ["./gradlew", "assemble"]
 
 FROM openjdk:11

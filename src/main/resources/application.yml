@@ -51,9 +51,9 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    username:
-    password:
-    url:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:

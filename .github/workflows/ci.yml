@@ -54,4 +54,4 @@ jobs:
             docker pull pangnem/dev-share:${GITHUB_SHA::7}
             docker tag pangnem/dev-share:${GITHUB_SHA::7} dev-share
             docker stop server
-            docker run -d --rm --name server -p 8080:8080 dev-share
+            docker run -d --rm --name server -p 8080:8080 dev-share --env-file ~/config/docker-env.txt
