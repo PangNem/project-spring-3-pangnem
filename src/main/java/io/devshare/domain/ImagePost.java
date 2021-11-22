@@ -32,7 +32,7 @@ public class ImagePost {
      * @param uploader 업로더 이름
      * @return 업로더 이름이 설정되어 생성된 도메인 객체
      */
-    public static ImagePost createImagePostFrom(String uploader) {
+    public static ImagePost create(String uploader) {
         return new ImagePost(uploader);
     }
 
