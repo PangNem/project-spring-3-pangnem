@@ -26,7 +26,7 @@ public class ImagePostService {
      * @return 생성된 이미지 포스트
      */
     public ImagePost add(String uploader, String url) {
-        ImagePost imagePost = ImagePost.createImagePostFrom(uploader);
+        ImagePost imagePost = ImagePost.create(uploader);
 
         imagePost.upload(url);
 

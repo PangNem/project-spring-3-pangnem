@@ -19,7 +19,7 @@ public class InMemoryImagePostRepositoryTest {
     @Test
     @DisplayName("save 메서드는 이미지 포스트를 저장한다")
     void save_test() {
-        ImagePost imagePost = ImagePost.createImagePostFrom("imagePost");
+        ImagePost imagePost = ImagePost.create("imagePost");
         assertThat(inMemoryImagePostRepository.findAll())
                 .hasSize(0);
 

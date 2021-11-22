@@ -84,7 +84,7 @@ public class IndexControllerTest {
             String uploader = invocation.getArgument(0);
             String url = invocation.getArgument(1);
 
-            ImagePost imagePost = ImagePost.createImagePostFrom(uploader);
+            ImagePost imagePost = ImagePost.create(uploader);
 
             imagePost.upload(url);
 
