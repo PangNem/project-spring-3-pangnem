@@ -1,8 +1,6 @@
 package io.devshare.application;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,12 +33,9 @@ public class S3Uploader {
      */
     public String upload(MultipartFile mfile) throws IOException {
         File convertedFile = convert(mfile);
+
         String key = getKey(convertedFile);
-
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, convertedFile)
-                .withCannedAcl(CannedAccessControlList.PublicRead);
-
-        amazonS3Client.putObject(putObjectRequest);
+        amazonS3Client.putObject(bucketName, key, convertedFile);
 
         convertedFile.delete();
 
