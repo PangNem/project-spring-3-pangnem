@@ -1,7 +1,7 @@
 package io.devshare.application;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import io.devshare.errors.NotSupportedImageExtension;
+import io.devshare.errors.NotSupportedImageExtensionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class S3UploaderTest {
     }
 
     @Test
-    @DisplayName("upload 메서드는 올바르지 않은 확장자일 경우 에러를 던진다")
+    @DisplayName("upload 메서드는 지원되지 않는 확장자일 경우 에러를 던진다")
     void upload_with_invalidExtension() throws IOException {
         MockMultipartFile file = new MockMultipartFile(
                 "image",
@@ -67,6 +67,6 @@ class S3UploaderTest {
         );
 
         assertThatThrownBy(() -> s3Uploader.upload(file))
-                .isInstanceOf(NotSupportedImageExtension.class);
+                .isInstanceOf(NotSupportedImageExtensionException.class);
     }
 }

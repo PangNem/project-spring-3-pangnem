@@ -1,6 +1,6 @@
 package io.devshare.application;
 
-import io.devshare.errors.NotSupportedImageExtension;
+import io.devshare.errors.NotSupportedImageExtensionException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -23,6 +23,6 @@ class ImageExtensionTest {
     @ValueSource(strings = {"a.1.txt", "b.java", "c.html"})
     void validExtension_withInValidImageExtension(String fileName) {
         assertThatThrownBy(() -> ImageExtension.validate(fileName))
-                .isInstanceOf(NotSupportedImageExtension.class);
+                .isInstanceOf(NotSupportedImageExtensionException.class);
     }
 }

@@ -1,6 +1,6 @@
 package io.devshare.application;
 
-import io.devshare.errors.NotSupportedImageExtension;
+import io.devshare.errors.NotSupportedImageExtensionException;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -31,14 +31,14 @@ public enum ImageExtension {
      * 파일 이름이 올바르지 않은 이미지 확장자일 경우 에러를 던집니다.
      *
      * @param fileName 파일 이름
-     * @throws NotSupportedImageExtension 파일 이름이 올바르지 않은 이미지 확장자일 경우
+     * @throws NotSupportedImageExtensionException 파일 이름이 올바르지 않은 이미지 확장자일 경우
      */
     public static void validate(String fileName) {
         String extension = getExtension(fileName)
                 .orElseThrow(IllegalArgumentException::new);
 
         if (!validExtension(extension)) {
-            throw new NotSupportedImageExtension(fileName);
+            throw new NotSupportedImageExtensionException(fileName);
         }
     }
 
