@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import io.devshare.errors.NotSupportedImageExtensionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
@@ -27,8 +28,7 @@ import static org.mockito.Mockito.mock;
 class S3UploaderTest {
 
     private static final String IMAGE_URL = "https://test-bucket-name.s3.ap-northeast-2.amazonaws.com/images/0c9a36d8-4052-46b8-8a9f-47b2108d8514test.png";
-    private static final String IMAGE_FILENAME = "src/test/resources/static/img/test.png";
-    private static final String TEXT_FILENAME = "src/test/resources/static/text/test.txt";
+    private static final String IMAGE_DIR_NAME = "src/test/resources/static/img/test.png";
 
     private S3Uploader s3Uploader;
 
@@ -41,32 +41,60 @@ class S3UploaderTest {
                 .willReturn(new URL(IMAGE_URL));
     }
 
-    @Test
-    @DisplayName("upload 메서드는 S3에 저장한 이미지 URL을 리턴한다")
-    void upload() throws IOException {
-        MockMultipartFile file = new MockMultipartFile(
-                "image",
-                "test.png",
-                "image/png",
-                new FileInputStream(IMAGE_FILENAME)
-        );
+    @Nested
+    @DisplayName("upload 메서드는")
+    class Describe_upload {
 
-        String url = s3Uploader.upload(file);
+        @Nested
+        @DisplayName("지원되지 않는 확장자를 가진 파일 이름일 경우")
+        class context_notSupportedExtensionFileName {
 
-        assertThat(url).isEqualTo(IMAGE_URL);
-    }
+            private String unSupportedExtensionFileName;
 
-    @Test
-    @DisplayName("upload 메서드는 지원되지 않는 확장자일 경우 에러를 던진다")
-    void upload_with_invalidExtension() throws IOException {
-        MockMultipartFile file = new MockMultipartFile(
-                "image",
-                "test.txt",
-                "image/png",
-                new FileInputStream(TEXT_FILENAME)
-        );
+            @BeforeEach
+            void setUp() {
+                unSupportedExtensionFileName = "test.txt";
+            }
 
-        assertThatThrownBy(() -> s3Uploader.upload(file))
-                .isInstanceOf(NotSupportedImageExtensionException.class);
+            @Test
+            @DisplayName("에러를 던진다")
+            void it_throws_error() throws IOException {
+                MockMultipartFile file = getFile(unSupportedExtensionFileName);
+
+                assertThatThrownBy(() -> s3Uploader.upload(file))
+                        .isInstanceOf(NotSupportedImageExtensionException.class);
+            }
+        }
+
+        @Nested
+        @DisplayName("지원되는 확장자를 가진 파일 이름일 경우")
+        class context_supportedExtensionFileName {
+
+            private String supportedExtensionFileName;
+
+            @BeforeEach
+            void setUp() {
+                supportedExtensionFileName = "test.png";
+            }
+
+            @Test
+            @DisplayName("S3에 저장한 이미지 URL을 리턴한다")
+            void it_returns_savedS3ImageURL() throws IOException {
+                MockMultipartFile file = getFile(supportedExtensionFileName);
+
+                String url = s3Uploader.upload(file);
+
+                assertThat(url).isEqualTo(IMAGE_URL);
+            }
+        }
+
+        private MockMultipartFile getFile(String fileName) throws IOException {
+            return new MockMultipartFile(
+                    "image",
+                    fileName,
+                    "image/png",
+                    new FileInputStream(IMAGE_DIR_NAME)
+            );
+        }
     }
 }
