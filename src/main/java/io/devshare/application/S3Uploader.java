@@ -32,16 +32,12 @@ public class S3Uploader {
      * @throws IOException 멀티파트 파일 변환에 실패한 경우
      */
     public String upload(MultipartFile multipartFile) throws IOException {
-        String fileName = getFileName(multipartFile);
+        String fileName = multipartFile.getOriginalFilename();
         String key = getKey(fileName);
 
         amazonS3Client.putObject(bucketName, key, multipartFile.getInputStream(), new ObjectMetadata());
 
         return amazonS3Client.getUrl(bucketName, key).toString();
-    }
-
-    private String getFileName(MultipartFile mfile) {
-        return System.getProperty("user.dir") + "/" + mfile.getOriginalFilename();
     }
 
     private String getKey(String fileName) {

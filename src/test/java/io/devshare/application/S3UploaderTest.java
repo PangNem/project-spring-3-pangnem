@@ -43,7 +43,7 @@ class S3UploaderTest {
 
         MockMultipartFile file = new MockMultipartFile(
                 "image",
-                FILENAME,
+                "test.png",
                 "image/png",
                 new FileInputStream(FILENAME)
         );
