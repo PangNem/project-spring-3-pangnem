@@ -9,7 +9,7 @@ public class ImagePostTest {
 
     @Test
     @DisplayName("create 메서드는 업로더가 설정된 도메인 객체를 리턴한다")
-    void createImagePostFrom_returns_set_uploader() {
+    void create_returns_set_uploader() {
         ImagePost imagePost = ImagePost.create("ImagePostUploader");
 
         String uploaderName = imagePost.getUploader();
