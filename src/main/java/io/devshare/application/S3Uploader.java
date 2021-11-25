@@ -2,6 +2,7 @@ package io.devshare.application;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import io.devshare.errors.NotSupportedImageExtension;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,10 +30,13 @@ public class S3Uploader {
      *
      * @param multipartFile 멀티파트 파일
      * @return 업로드한 파일 URL
-     * @throws IOException 멀티파트 파일 변환에 실패한 경우
+     * @throws IOException                멀티파트 파일 변환에 실패한 경우
+     * @throws NotSupportedImageExtension 올바르지 않은 이미지 확장자일 경우
      */
     public String upload(MultipartFile multipartFile) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
+        ImageExtension.validate(fileName);
+
         String key = getKey(fileName);
 
         amazonS3Client.putObject(bucketName, key, multipartFile.getInputStream(), new ObjectMetadata());
