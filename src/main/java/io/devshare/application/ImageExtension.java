@@ -1,0 +1,59 @@
+package io.devshare.application;
+
+import io.devshare.errors.NotSupportedImageExtension;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public enum ImageExtension {
+    JPG("jpg"),
+    JPEG("jpeg"),
+    GIF("gif"),
+    PNG("png");
+
+    private final String extension;
+
+    ImageExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    private static final Map<String, ImageExtension> stringToEnum = Arrays.stream(ImageExtension.values())
+            .collect(Collectors.toMap(ImageExtension::getExtension, it -> it));
+
+    /**
+     * 파일 이름이 올바르지 않은 이미지 확장자일 경우 에러를 던집니다.
+     *
+     * @param fileName 파일 이름
+     * @throws NotSupportedImageExtension 파일 이름이 올바르지 않은 이미지 확장자일 경우
+     */
+    public static void validate(String fileName) {
+        String extension = getExtension(fileName)
+                .orElseThrow(IllegalArgumentException::new);
+
+        if (!validExtension(extension)) {
+            throw new NotSupportedImageExtension(fileName);
+        }
+    }
+
+    private static boolean validExtension(String extension) {
+        String key = extension.toLowerCase();
+        ImageExtension imageExtension = stringToEnum.get(key);
+
+        return imageExtension != null;
+    }
+
+    private static Optional<String> getExtension(String fileName) {
+        String[] dotSplit = fileName.split("\\.");
+
+        return Stream.of(dotSplit)
+                .skip(dotSplit.length - 1)
+                .findFirst();
+    }
+}
