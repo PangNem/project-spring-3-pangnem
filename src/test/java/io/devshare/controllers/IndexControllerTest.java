@@ -1,7 +1,7 @@
 package io.devshare.controllers;
 
 import io.devshare.application.ImagePostService;
-import io.devshare.application.S3Uploader;
+import io.devshare.application.S3ImageUploader;
 import io.devshare.domain.ImagePost;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class IndexControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private S3Uploader s3Uploader;
+    private S3ImageUploader s3ImageUploader;
 
     @MockBean
     private ImagePostService imagePostService;
@@ -57,7 +57,7 @@ public class IndexControllerTest {
     @Test
     @DisplayName("POST /images 요청은 301을 응답한다")
     void postImages() throws Exception {
-        given(s3Uploader.upload(any(MultipartFile.class)))
+        given(s3ImageUploader.upload(any(MultipartFile.class)))
                 .willReturn("url");
         given(imagePostService.add("uploader", "url"))
                 .will(imageServiceAddAnswer());

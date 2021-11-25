@@ -25,17 +25,17 @@ import static org.mockito.Mockito.mock;
         "classpath:/application.yml" +
         ",classpath:/aws_test.yml"
 )
-class S3UploaderTest {
+class S3ImageUploaderTest {
 
     private static final String IMAGE_URL = "https://test-bucket-name.s3.ap-northeast-2.amazonaws.com/images/0c9a36d8-4052-46b8-8a9f-47b2108d8514test.png";
     private static final String IMAGE_DIR_NAME = "src/test/resources/static/img/test.png";
 
-    private S3Uploader s3Uploader;
+    private S3ImageUploader s3ImageUploader;
 
     @BeforeEach
     void setUp() throws MalformedURLException {
         AmazonS3Client amazonS3Client = mock(AmazonS3Client.class);
-        s3Uploader = new S3Uploader(amazonS3Client);
+        s3ImageUploader = new S3ImageUploader(amazonS3Client);
 
         given(amazonS3Client.getUrl(eq(null), anyString()))
                 .willReturn(new URL(IMAGE_URL));
@@ -61,7 +61,7 @@ class S3UploaderTest {
             void it_throws_error() throws IOException {
                 MockMultipartFile file = getFile(unSupportedExtensionFileName);
 
-                assertThatThrownBy(() -> s3Uploader.upload(file))
+                assertThatThrownBy(() -> s3ImageUploader.upload(file))
                         .isInstanceOf(NotSupportedImageExtensionException.class);
             }
         }
@@ -82,7 +82,7 @@ class S3UploaderTest {
             void it_returns_savedS3ImageURL() throws IOException {
                 MockMultipartFile file = getFile(supportedExtensionFileName);
 
-                String url = s3Uploader.upload(file);
+                String url = s3ImageUploader.upload(file);
 
                 assertThat(url).isEqualTo(IMAGE_URL);
             }

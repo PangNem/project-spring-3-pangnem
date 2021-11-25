@@ -1,7 +1,7 @@
 package io.devshare.controllers;
 
 import io.devshare.application.ImagePostService;
-import io.devshare.application.S3Uploader;
+import io.devshare.application.S3ImageUploader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ import java.io.IOException;
 @Controller
 public class IndexController {
 
-    private S3Uploader s3Uploader;
+    private S3ImageUploader s3ImageUploader;
     private ImagePostService imagePostService;
 
-    public IndexController(S3Uploader s3Uploader, ImagePostService imagePostService) {
-        this.s3Uploader = s3Uploader;
+    public IndexController(S3ImageUploader s3ImageUploader, ImagePostService imagePostService) {
+        this.s3ImageUploader = s3ImageUploader;
         this.imagePostService = imagePostService;
     }
 
@@ -35,7 +35,7 @@ public class IndexController {
             @RequestParam("uploader") String uploader,
             @RequestParam("images") MultipartFile images
     ) throws IOException {
-        String imageUrl = s3Uploader.upload(images);
+        String imageUrl = s3ImageUploader.upload(images);
 
         imagePostService.add(uploader, imageUrl);
 

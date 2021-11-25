@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class S3Uploader {
+public class S3ImageUploader {
 
     private final AmazonS3Client amazonS3Client;
 
-    public S3Uploader(AmazonS3Client amazonS3Client) {
+    public S3ImageUploader(AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
     }
 
