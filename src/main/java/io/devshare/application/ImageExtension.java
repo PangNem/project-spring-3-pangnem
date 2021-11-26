@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * 이미지 확장자.
+ */
 public enum ImageExtension {
     JPG("jpg"),
     JPEG("jpeg"),
