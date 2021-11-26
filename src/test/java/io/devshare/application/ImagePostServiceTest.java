@@ -2,6 +2,7 @@ package io.devshare.application;
 
 import io.devshare.domain.ImagePost;
 import io.devshare.dto.ImagePostCreateRequest;
+import io.devshare.dto.ImagePostResponse;
 import io.devshare.infra.InMemoryImagePostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,9 +28,9 @@ public class ImagePostServiceTest {
     }
 
     @Test
-    @DisplayName("getAllImagePosts 메서드는 모든 ImagePost를 반환한다")
+    @DisplayName("getAllImagePosts 메서드는 모든 ImagePostResponse를 반환한다")
     void getAllImagePosts() {
-        List<ImagePost> allImagePosts = imagePostService.getAllImagePosts();
+        List<ImagePostResponse> allImagePosts = imagePostService.getAllImagePosts();
 
         assertThat(allImagePosts).hasSize(1);
     }

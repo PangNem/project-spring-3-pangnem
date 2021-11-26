@@ -3,10 +3,12 @@ package io.devshare.application;
 import io.devshare.domain.ImagePost;
 import io.devshare.domain.ImagePostRepository;
 import io.devshare.dto.ImagePostCreateRequest;
+import io.devshare.dto.ImagePostResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ImagePost 관련 로직 처리를 담당.
@@ -20,8 +22,10 @@ public class ImagePostService {
     }
 
     @Transactional(readOnly = true)
-    public List<ImagePost> getAllImagePosts() {
-        return imagePostRepository.findAll();
+    public List<ImagePostResponse> getAllImagePosts() {
+        return imagePostRepository.findAll().stream()
+                .map(ImagePostResponse::new)
+                .collect(Collectors.toList());
     }
 
     /**
