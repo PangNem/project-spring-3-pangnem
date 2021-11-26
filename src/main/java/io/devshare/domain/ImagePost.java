@@ -36,6 +36,11 @@ public class ImagePost {
         return new ImagePost(uploader);
     }
 
+    /**
+     * 이미지를 업로드 합니다.
+     *
+     * @param url 업로드한 url
+     */
     public void upload(String url) {
         this.url = url;
     }

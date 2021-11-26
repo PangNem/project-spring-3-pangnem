@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * ImagePost 관련 로직 처리를 담당.
+ */
 @Service
 public class ImagePostService {
     private ImagePostRepository imagePostRepository;

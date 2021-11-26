@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * S3 이미지 업로드 담당.
+ */
 @Component
 public class S3ImageUploader {
 
