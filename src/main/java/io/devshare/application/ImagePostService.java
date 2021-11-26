@@ -15,6 +15,7 @@ public class ImagePostService {
         this.imagePostRepository = imagePostRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ImagePost> getAllImagePosts() {
         return imagePostRepository.findAll();
     }
