@@ -3,9 +3,10 @@ package io.devshare.controllers;
 import io.devshare.application.ImagePostService;
 import io.devshare.application.S3ImageUploader;
 import io.devshare.domain.ImagePost;
+import io.devshare.dto.ImagePostCreateRequest;
+import io.devshare.dto.ImageUploadRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 
@@ -57,10 +57,11 @@ public class IndexControllerTest {
     @Test
     @DisplayName("POST /images 요청은 301을 응답한다")
     void postImages() throws Exception {
-        given(s3ImageUploader.upload(any(MultipartFile.class)))
+        given(s3ImageUploader.upload(any(ImageUploadRequest.class)))
                 .willReturn("url");
-        given(imagePostService.add("uploader", "url"))
-                .will(imageServiceAddAnswer());
+        given(imagePostService.add(any(ImagePostCreateRequest.class)))
+                .willReturn(ImagePost.create("uploader"));
+
         ClassPathResource fileResource = new ClassPathResource(FILENAME);
         MockMultipartFile image = new MockMultipartFile(
                 "images",
@@ -77,18 +78,5 @@ public class IndexControllerTest {
 
         actions
                 .andExpect(status().isFound());
-    }
-
-    private Answer<Object> imageServiceAddAnswer() {
-        return invocation -> {
-            String uploader = invocation.getArgument(0);
-            String url = invocation.getArgument(1);
-
-            ImagePost imagePost = ImagePost.create(uploader);
-
-            imagePost.upload(url);
-
-            return imagePost;
-        };
     }
 }

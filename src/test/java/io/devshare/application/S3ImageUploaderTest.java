@@ -1,6 +1,7 @@
 package io.devshare.application;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import io.devshare.dto.ImageUploadRequest;
 import io.devshare.errors.NotSupportedImageExtensionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -60,8 +61,12 @@ class S3ImageUploaderTest {
             @DisplayName("에러를 던진다")
             void it_throws_error() throws IOException {
                 MockMultipartFile file = getFile(unSupportedExtensionFileName);
+                ImageUploadRequest imageUploadRequest = ImageUploadRequest.builder()
+                        .uploader("uploader")
+                        .images(file)
+                        .build();
 
-                assertThatThrownBy(() -> s3ImageUploader.upload(file))
+                assertThatThrownBy(() -> s3ImageUploader.upload(imageUploadRequest))
                         .isInstanceOf(NotSupportedImageExtensionException.class);
             }
         }
@@ -81,8 +86,12 @@ class S3ImageUploaderTest {
             @DisplayName("S3에 저장한 이미지 URL을 리턴한다")
             void it_returns_savedS3ImageURL() throws IOException {
                 MockMultipartFile file = getFile(supportedExtensionFileName);
+                ImageUploadRequest imageUploadRequest = ImageUploadRequest.builder()
+                        .uploader("uploader")
+                        .images(file)
+                        .build();
 
-                String url = s3ImageUploader.upload(file);
+                String url = s3ImageUploader.upload(imageUploadRequest);
 
                 assertThat(url).isEqualTo(IMAGE_URL);
             }
