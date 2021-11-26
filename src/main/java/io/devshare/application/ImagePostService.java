@@ -3,6 +3,7 @@ package io.devshare.application;
 import io.devshare.domain.ImagePost;
 import io.devshare.domain.ImagePostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class ImagePostService {
      * @param url      이미지 URL
      * @return 생성된 이미지 포스트
      */
+    @Transactional
     public ImagePost add(String uploader, String url) {
         ImagePost imagePost = ImagePost.create(uploader);
 
