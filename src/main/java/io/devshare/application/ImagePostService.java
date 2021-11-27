@@ -23,7 +23,7 @@ public class ImagePostService {
 
     @Transactional(readOnly = true)
     public List<ImagePostResponse> getAllImagePosts() {
-        return imagePostRepository.findAll().stream()
+        return imagePostRepository.findAllByOrderByIdDesc().stream()
                 .map(ImagePostResponse::new)
                 .collect(Collectors.toList());
     }

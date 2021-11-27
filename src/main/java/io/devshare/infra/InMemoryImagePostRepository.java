@@ -15,7 +15,7 @@ public class InMemoryImagePostRepository implements ImagePostRepository {
     private List<ImagePost> imagePosts = new ArrayList<>();
 
     @Override
-    public List<ImagePost> findAll() {
+    public List<ImagePost> findAllByOrderByIdDesc() {
         return imagePosts;
     }
 

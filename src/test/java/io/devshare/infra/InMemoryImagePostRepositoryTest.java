@@ -20,12 +20,12 @@ public class InMemoryImagePostRepositoryTest {
     @DisplayName("save 메서드는 이미지 포스트를 저장한다")
     void save_test() {
         ImagePost imagePost = ImagePost.create("imagePost");
-        assertThat(inMemoryImagePostRepository.findAll())
+        assertThat(inMemoryImagePostRepository.findAllByOrderByIdDesc())
                 .hasSize(0);
 
         inMemoryImagePostRepository.save(imagePost);
 
-        assertThat(inMemoryImagePostRepository.findAll())
+        assertThat(inMemoryImagePostRepository.findAllByOrderByIdDesc())
                 .hasSize(1);
     }
 }
