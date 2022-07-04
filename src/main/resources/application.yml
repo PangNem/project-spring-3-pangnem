@@ -4,6 +4,7 @@ cloud:
       bucket:
         name: "devshare-pangnem"
         imageDir: "images"
+        fileDir: "files"
     region:
       static: "ap-northeast-2"
     stack: # CloudFormation 구성 설정 해제
@@ -32,7 +33,7 @@ spring:
       enabled: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 ---
 spring:

@@ -23,12 +23,8 @@ public enum ImageExtension {
         this.extension = extension;
     }
 
-    public String getExtension() {
-        return extension;
-    }
-
     private static final Map<String, ImageExtension> stringToEnum = Arrays.stream(ImageExtension.values())
-            .collect(Collectors.toMap(ImageExtension::getExtension, it -> it));
+            .collect(Collectors.toMap(it -> it.extension, it -> it));
 
     /**
      * 파일 이름이 올바르지 않은 이미지 확장자일 경우 에러를 던집니다.
@@ -58,5 +54,13 @@ public enum ImageExtension {
         return Stream.of(dotSplit)
                 .skip(dotSplit.length - 1)
                 .findFirst();
+    }
+
+    public static boolean isImage(String fileName) {
+        getExtension(fileName)
+                .orElseThrow(IllegalArgumentException::new);
+
+        return Optional.ofNullable(stringToEnum.get(fileName))
+                .isPresent();
     }
 }

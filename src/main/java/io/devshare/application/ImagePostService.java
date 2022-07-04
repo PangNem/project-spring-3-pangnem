@@ -4,6 +4,7 @@ import io.devshare.domain.ImagePost;
 import io.devshare.domain.ImagePostRepository;
 import io.devshare.dto.ImagePostCreateRequest;
 import io.devshare.dto.ImagePostResponse;
+import io.devshare.dto.PreSignedUrl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +43,14 @@ public class ImagePostService {
         ImagePost imagePost = ImagePost.create(uploader);
 
         imagePost.upload(url);
+
+        return imagePostRepository.save(imagePost);
+    }
+
+    public ImagePost add(PreSignedUrl preSignedUrl) {
+        ImagePost imagePost = ImagePost.create();
+
+        imagePost.upload(preSignedUrl.toReadableUrl());
 
         return imagePostRepository.save(imagePost);
     }

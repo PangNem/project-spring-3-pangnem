@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 public class ImagePost {
+    private static final String DEFAULT_UPLOADER = "none";
 
     @Id
     @GeneratedValue
@@ -34,6 +35,10 @@ public class ImagePost {
      */
     public static ImagePost create(String uploader) {
         return new ImagePost(uploader);
+    }
+
+    public static ImagePost create() {
+        return create(DEFAULT_UPLOADER);
     }
 
     /**

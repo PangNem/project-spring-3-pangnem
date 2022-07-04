@@ -48,7 +48,7 @@
                 role="button"
                 data-mdb-toggle="modal"
                 data-mdb-target="#exampleModal"
-        >이미지 업로드 하기
+        >파일 업로드 하기
         </button>
 
     </div>
@@ -64,7 +64,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">이미지 업로드</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">파일 업로드</h5>
                     <button
                             type="button"
                             class="btn-close"
@@ -73,14 +73,13 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <input id="file" type="file" class="form-control" name="images"
-                           accept="image/jpg, image/jpeg, image/gif, image/png" required/>
+                    <input id="file" type="file" class="form-control" name="files" required/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
                         Close
                     </button>
-                    <button onclick="uploadImage()" class="btn btn-primary">Save changes</button>
+                    <button onclick="uploadFile()" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -89,53 +88,16 @@
 </header>
 
 <main>
-    {{#each ImagePosts}}
-        {{#isMultipleOfThree @index}}
-            <div class="d-flex justify-content-center align-items-center m-4"/>
-        {{/isMultipleOfThree}}
-        <div
-                class="bg-image d-flex justify-content-end align-items-end m-4"
-                style="
-                        background-image: url('{{url}}');
-                        height: 33vh;
-                        width: 33vh;
-                        "
-        >
-            <p class="text-white m-2" style="text-shadow: 2px 2px 4px #000000;">
-                {{uploader}}
-            </p>
-        </div>
-        {{#isPlusOneMultipleOfThree @index}}
-            </div>
-        {{/isPlusOneMultipleOfThree}}
+    <p> 파일 목록</p>
+    {{#each Files}}
+        <li>
+            <a href="{{url}}">{{url}}</a>
+        </li>
     {{/each}}
 </main>
 
-<!-- Background image -->
-<footer class="text-center text-white fixed-bottom fixed-bottom" style="background-color: #f1f1f1;">
-    <!-- Grid container -->
-    <div class="container pt-4">
-        <section class="mb-4">
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="https://github.com/codesoom/project-spring-3-pangnem"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-github"></i
-            ></a>
-        </section>
-    </div>
-
-    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        2021, Made By
-        <a href="https://github.com/pangnem">
-            Pangnem
-        </a>
-    </div>
-</footer>
-
 <script>
-    async function uploadImage() {
+    async function uploadFile() {
         try {
             const preSignedUrl = await getPreSignedUrl();
             await uploadToS3With(preSignedUrl);
@@ -147,9 +109,9 @@
     }
 
     function notifyUploaded(preSignedUrl) {
-        return fetch(`http://localhost:8080/image/save`, {
+        return fetch(`http://localhost:8080/file/save`, {
             method: 'POST',
-            body: JSON.stringify({'preSignedUrl': preSignedUrl}),
+            body: JSON.stringify({'fileUrl': preSignedUrl}),
             headers: {
                 'Content-Type': "application/json"
             }
