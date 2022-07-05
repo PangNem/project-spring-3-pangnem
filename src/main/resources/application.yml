@@ -9,17 +9,19 @@ cloud:
       static: "ap-northeast-2"
     stack: # CloudFormation 구성 설정 해제
       auto: false
+      instanceProfile: true # aws configure list로 확인한 key들을 사용
+      useDefaultAwsCredentialsChain: true
     credentials:
       accessKey:
       secretKey:
-      instanceProfile: true # aws configure list로 확인한 key들을 사용
-      useDefaultAwsCredentialsChain: true
 
 spring:
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 12MB
+  profiles:
+    include: aws
 
 ---
 spring:
